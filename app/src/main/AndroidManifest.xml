@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sheetal.hp">
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Main2Activity"
+            android:parentActivityName=".MainHomeActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".Main2Activity" />
+        <activity
+            android:name=".HomeScreenActivity"
+            android:label="@string/title_activity_home_screen"
+            android:parentActivityName=".VolunteerHomeScreenAfterLogin" />
+        <activity android:name=".MainHomeActivity" />
+        <activity android:name=".DietChart" />
+        <activity android:name=".ChildVaccinationCenterActivity" />
+        <activity android:name=".VolunteerHomeScreenAfterLogin" />
+        <activity android:name=".MotherHomeScreenActivity" />
+        <activity android:name=".BMICalculator" />
+        <activity android:name=".SchemeActivity" />
+        <activity android:name=".InfantMortalityRate"></activity>
+    </application>
+
+</manifest>

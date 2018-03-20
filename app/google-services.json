@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "954349143782",
+    "firebase_url": "https://hpfirebaseproject-5ea87.firebaseio.com",
+    "project_id": "hpfirebaseproject-5ea87",
+    "storage_bucket": "hpfirebaseproject-5ea87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954349143782:android:3836376b1e216059",
+        "android_client_info": {
+          "package_name": "com.example.sheetal.hp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954349143782-3r8nt5asmn6c0fdafgj9be03dmop589p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sheetal.hp",
+            "certificate_hash": "3bff03fcb802dc41951871acc6d60b10abd72f5e"
+          }
+        },
+        {
+          "client_id": "954349143782-i66sd154qq98pl3b4bjrugutr0rcp7dq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCscnG0s4zGNCNhv_dfzpM-q8I_IWzMpJI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954349143782-i66sd154qq98pl3b4bjrugutr0rcp7dq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

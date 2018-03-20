@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">परवरिश</string>
+    <string name="registerString">New here? Sign Up</string>
+    <string name="loginString">Log in</string>
+    <string name="forgetpass">Forget password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confrm_login">Already have an account. Log in</string>
+    <string name="privacyString"><![CDATA[By signing up you confirm that you have read & agree to the our Privacy Policy and Terms & Conditions. © CyberPunk]]></string>
+    <string name="copyrightString">© CyberPunk</string>
+    <string name="title_activity_home_screen">HomeScreenActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
