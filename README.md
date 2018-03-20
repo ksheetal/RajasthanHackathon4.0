@@ -43,9 +43,9 @@ FEATURES:
 
 TECHNOLOGY USED:
 
-Android Studio
-FireBase (For real time data)
-Adobe Photoshop (for editing and designing)
+Android Studio</br>
+FireBase (for real time data)</br>
+Adobe Photoshop (for editing and designing)</br>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 FUTURE SCOPE:
@@ -56,10 +56,10 @@ By collaborating with e-mitra we can use the rural and urban kiosks center for p
 
 DATA REFERENCES:
 
-https://data.gov.in/
-http://niti.gov.in/
-http://www.rajasthan.gov.in/
-http://emitra.rajasthan.gov.in/
+https://data.gov.in/</br>
+http://niti.gov.in/</br>
+http://www.rajasthan.gov.in/</br>
+http://emitra.rajasthan.gov.in/</br>
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 HAPPY PARENTING-ONE STOP SOLUTION FOR MONITORING HEALTHCARE OF PREGNANT LADIES AND NEWBORNS!
