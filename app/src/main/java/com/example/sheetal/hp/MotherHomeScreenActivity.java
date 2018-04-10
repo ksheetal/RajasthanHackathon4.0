@@ -19,6 +19,21 @@ import com.tapadoo.alerter.Alerter;
 
 public class MotherHomeScreenActivity extends AppCompatActivity {
 
+
+
+
+    private TextView mnAddress;
+    private TextView mParentNName;
+    private TextView mnpremature;
+    private TextView mnSerialnumber;
+    private TextView mnProvidedVaccination;
+    private TextView mSerialNumber;
+    private TextView mnVolunteerId;
+
+
+
+
+
     private FirebaseAuth mAuth;
     Button showAlert;
     public String mMessage = null;
@@ -26,6 +41,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
 
     public TextView nTitle;
     public TextView nMessage;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 //      DatabaseReference databaseReference1 =  FirebaseDatabase.getInstance().getReference().child("Users");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +58,56 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         });
 
 
+        mnSerialnumber = findViewById(R.id.mvolunteerId);
+        mnAddress = findViewById(R.id.mAddress);
+        mParentNName = findViewById(R.id.mParentName);
+        mnpremature = findViewById(R.id.mPremature);
+        mnProvidedVaccination = findViewById(R.id.mProvidedVaccination);
+        mSerialNumber = findViewById(R.id.mSerialNumber);
+        mnVolunteerId = findViewById(R.id.mvolunteerId);
         nTitle = findViewById(R.id.mParentName);
         nMessage = findViewById(R.id.mvolunteerId);
 
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // String sheetal = null;
+                String add = null;
+                String vname = null;
+                String pv= null;
+                String pre = null;
+                String vi =null;
+                String sn= null;
+                for (DataSnapshot doc : dataSnapshot.getChildren()) {
+                    //ChildOne childOne = doc.getValue(ChildOne.class);
+                    Data doc1 = doc.getValue(Data.class);
+
+                    add = doc1.getAdds();
+                    vname = doc1.getName();
+                    pv = doc1.getPv();
+                    pre = doc1.getPre();
+                    sn=doc1.getsn();
+                    vi = doc1.getVi();
+                }
+                mnAddress.setText(add);
+                mParentNName.setText(vname);
+                mnProvidedVaccination.setText(pv);
+                mnpremature.setText(pre);
+                mSerialNumber.setText(vi);
+                mnSerialnumber.setText(sn);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
+
+
+
+
+
     /*    databaseReference1.addValueEventListener(new ValueEventListener() {
            // String mMessage = null;
             //String mTitile = null;
@@ -86,10 +148,6 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
 
         }
     }
-
-
-
-
     private void logout() {
         mAuth.signOut();
         sendtologin();
@@ -107,7 +165,6 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
                 .setTitle("Hello Brother")
                 .setText("Where are You?")
                 .show();
-
     }
 
 }

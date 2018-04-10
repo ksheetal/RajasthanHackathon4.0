@@ -70,7 +70,8 @@ public class HomeScreenActivity extends AppCompatActivity {
     private RecyclerView mrecyclerView;
 
     private FirebaseDatabase database;
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference("Data");
 //    DatabaseReference mcondition = databaseReference.child("ChildOne/Address");
     // DatabaseReference mcondition1 = databaseReference.child("Users/ChildOne");
 
@@ -83,7 +84,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         mainScreenToolbar = findViewById(R.id.homeScreenToolbar);
         setSupportActionBar(mainScreenToolbar);
-        getSupportActionBar().setTitle("परवरिश");
+        getSupportActionBar().setTitle("AAAs");
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mnSerialnumber = findViewById(R.id.mvolunteerId);
@@ -129,7 +130,6 @@ public class HomeScreenActivity extends AppCompatActivity {
                     for (DataSnapshot doc : dataSnapshot.getChildren()) {
                         //ChildOne childOne = doc.getValue(ChildOne.class);
                         Data doc1 = doc.getValue(Data.class);
-
                         add = doc1.getAdds();
                         vname = doc1.getName();
                         pv = doc1.getPv();

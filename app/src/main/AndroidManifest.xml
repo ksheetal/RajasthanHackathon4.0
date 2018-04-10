@@ -35,7 +35,8 @@
         <activity android:name=".MotherHomeScreenActivity" />
         <activity android:name=".BMICalculator" />
         <activity android:name=".SchemeActivity" />
-        <activity android:name=".InfantMortalityRate"></activity>
+        <activity android:name=".InfantMortalityRate" />
+        <activity android:name=".AddChild"></activity>
     </application>
 
 </manifest>

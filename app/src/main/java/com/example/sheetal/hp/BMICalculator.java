@@ -39,13 +39,10 @@ public class BMICalculator extends AppCompatActivity {
 
                       float bmi = weightValue / (heightValue * heightValue);
                       //result.setText((int) bmi);
-
                       Toast.makeText(BMICalculator.this,"BMI is :"+bmi,Toast.LENGTH_SHORT).show();
                      }
           }
       });
     }
-
-
 }
 

@@ -5,12 +5,6 @@
         android:id="@+id/menuSettings"
         android:title="Account Settings" />
     <item
-        android:id="@+id/SendChild"
-        android:title="Send Child" />
-    <item
-        android:id="@+id/AddChild"
-        android:title="Add Child" />
-    <item
         android:id="@+id/menuLogout"
         android:title="Logout" />
 

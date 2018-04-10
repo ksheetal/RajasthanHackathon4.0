@@ -7,8 +7,8 @@
     tools:context="com.example.sheetal.hp.Main2Activity">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="391dp"
+        android:layout_height="611dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -66,16 +66,16 @@
 
         <Button
             android:id="@+id/loginBtn"
-            android:layout_width="135dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/buttonlogin"
             android:padding="16dp"
             android:text="@string/loginString"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginPass" />
 
@@ -84,11 +84,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="56dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="8dp"
             android:text="@string/registerString"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/googlebtn" />
 
         <TextView
             android:id="@+id/forgetPass"
@@ -96,13 +96,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="8dp"
             android:text="@string/forgetpass"
             android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.833"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/googlebtn" />
 
         <View
             android:id="@+id/lineView"
@@ -132,5 +132,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lineView"
             app:layout_constraintVertical_bias="0.189" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/googlebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/loginBtn"
+            app:layout_constraintTop_toBottomOf="@+id/loginPass"></com.google.android.gms.common.SignInButton>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
