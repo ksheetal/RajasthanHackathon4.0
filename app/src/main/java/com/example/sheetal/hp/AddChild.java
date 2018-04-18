@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class AddChild extends AppCompatActivity {
     TextView tDate;
     Toolbar addChildToolbar;
 
+    TextClock textClock;
     NotificationHelper notificationHelper;
 
     Button button;
@@ -43,20 +45,27 @@ public class AddChild extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         tDate = findViewById(R.id.dateTextView);
+        textClock = findViewById(R.id.textClock);
         Date currentTime = Calendar.getInstance().getTime();
 
         button = findViewById(R.id.button2);
        // stime = tDate.toString();
-        tDate.setText(currentTime.toString());
-        Notification.Builder builder = notificationHelper.getsheetalChannelNotification("Hello","world");
-        notificationHelper.getManager().notify(new Random().nextInt(),builder.build());
+       // tDate.setText(currentTime.toString());
+
+       // tDate.setText(textClock.toString());
+        String[] x = currentTime.toString().split(" ");
+       // tDate.setText(textClock.getEditableText());
+         if(textClock.getText().toString().equals("1:09 PM")){   // not working 
+             Notification.Builder builder = notificationHelper.getsheetalChannelNotification("Hello ", "Next meeting on Friday i.e 20 apr 2018.");
+             notificationHelper.getManager().notify(new Random().nextInt(), builder.build());
+         }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Toast.makeText(AddChild.this,"Notification send",Toast.LENGTH_SHORT).show();
-                Notification.Builder builder = notificationHelper.getsheetalChannelNotification("Hello","world");
+                Notification.Builder builder = notificationHelper.getsheetalChannelNotification("Hello User","Hey There! be There.!!h");
                 notificationHelper.getManager().notify(new Random().nextInt(),builder.build());
             }
         });
