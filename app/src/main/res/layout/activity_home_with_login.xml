@@ -308,7 +308,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center"
-        android:text="Beacause it's not about money."
+        android:text="Because it's not about money."
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/registerTextView2"
         app:layout_constraintEnd_toEndOf="parent"

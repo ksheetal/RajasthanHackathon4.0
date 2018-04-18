@@ -80,6 +80,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        //private void showAlerter(View v){
+
+
         mAuth = FirebaseAuth.getInstance();
 
         mainScreenToolbar = findViewById(R.id.homeScreenToolbar);
@@ -121,7 +124,7 @@ public class HomeScreenActivity extends AppCompatActivity {
              public void onDataChange(DataSnapshot dataSnapshot) {
 
                  // String sheetal = null;
-                    String add = null;
+                     String add = null;
                     String vname = null;
                     String pv= null;
                     String pre = null;
@@ -143,15 +146,19 @@ public class HomeScreenActivity extends AppCompatActivity {
                  mnpremature.setText(pre);
                  mSerialNumber.setText(vi);
                  mnSerialnumber.setText(sn);
-
              }
+
              @Override
              public void onCancelled(DatabaseError databaseError) {
 
              }
          });
+/*        Alerter.create(this)
+                .setTitle("Injection activity")
+                .setText("Hello World....")
+                .show();
 
-
+*/
         // FireBase Notification
 
 /*
@@ -200,6 +207,11 @@ public class HomeScreenActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menuLogout:
                 logout();
+                return true;
+
+            case R.id.AddChild:
+                Intent intent = new Intent(HomeScreenActivity.this,AddChild.class);
+                startActivity(intent);
                 return true;
 
             default:
