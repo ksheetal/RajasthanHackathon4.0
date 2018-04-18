@@ -55,7 +55,7 @@ public class AddChild extends AppCompatActivity {
        // tDate.setText(textClock.toString());
         String[] x = currentTime.toString().split(" ");
        // tDate.setText(textClock.getEditableText());
-         if(textClock.getText().toString().equals("1:09 PM")){   // not working 
+         if(textClock.getText().toString().equals("1:09 PM")){   // not working
              Notification.Builder builder = notificationHelper.getsheetalChannelNotification("Hello ", "Next meeting on Friday i.e 20 apr 2018.");
              notificationHelper.getManager().notify(new Random().nextInt(), builder.build());
          }
