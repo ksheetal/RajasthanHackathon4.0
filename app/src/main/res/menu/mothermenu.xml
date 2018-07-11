@@ -6,10 +6,10 @@
         android:title="Account Settings" />
     <item
         android:id="@+id/SendChild"
-        android:title="Send Child Details" />
+        android:title="Send Mother Details" />
     <item
         android:id="@+id/AddChild"
-        android:title="Add Child Details" />
+        android:title="Add Mother Details" />
     <item
         android:id="@+id/menuLogout"
         android:title="Logout" />

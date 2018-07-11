@@ -66,12 +66,14 @@ public class AddChild extends AppCompatActivity {
         setSupportActionBar(addChildToolbar);
         getSupportActionBar().setTitle("Add Child");
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         mAuth = FirebaseAuth.getInstance();
         mUser =mAuth.getCurrentUser();
 
-        mPostDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
+        mPostDatabase = FirebaseDatabase.getInstance().getReference().child("Blog").child(mUser.getUid());
 
         progressDialog = new ProgressDialog(this);
         mChildName = (EditText)findViewById(R.id.EnterChildName);

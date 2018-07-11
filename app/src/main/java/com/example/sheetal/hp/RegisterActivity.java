@@ -124,6 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             senttomain();
+            finish();
         }
 
     }

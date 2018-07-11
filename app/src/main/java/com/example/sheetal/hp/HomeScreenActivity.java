@@ -4,6 +4,7 @@ import android.*;
 import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -19,8 +20,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -35,6 +38,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.tapadoo.alerter.Alerter;
@@ -74,20 +78,38 @@ public class HomeScreenActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
 
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference= mDatabase.getReference().child("Blog");
+        mDatabaseReference= mDatabase.getReference().child("Blog").child(mUser.getUid());
         mDatabaseReference.keepSynced(true);
+
+        //mDatabaseReference = mDatabase.getReference(); //checking for particular post.
 
         mainScreenToolbar = findViewById(R.id.homeScreenToolbar);
         setSupportActionBar(mainScreenToolbar);
-        getSupportActionBar().setTitle("AAAs");
+        getSupportActionBar().setTitle("Children Details ");
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         blogList = new ArrayList<>();
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
+                recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                //Values are passing to activity & to fragment as well
+                Toast.makeText(HomeScreenActivity.this, "Single Click on position :"+ position,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(HomeScreenActivity.this, "Long press on position :"+ position,
+                        Toast.LENGTH_LONG).show();
+            }
+        }));
 
 
         // FireBase Notification
@@ -114,6 +136,58 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     }
 
+    //RECYCLER VIEW ONCLICK METHOND
+    public static interface ClickListener{
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
+    }
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
+
+        private ClickListener clicklistener;
+        private GestureDetector gestureDetector;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ClickListener clicklistener){
+
+            this.clicklistener=clicklistener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child=recycleView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clicklistener!=null){
+                        clicklistener.onLongClick(child,recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child=rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clicklistener!=null && gestureDetector.onTouchEvent(e)){
+                clicklistener.onClick(child,rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+
+
+//RECYCLER VIEW ONITEM TOUCH ENDS
 
     @Override
     protected void onStart() {
@@ -123,6 +197,8 @@ public class HomeScreenActivity extends AppCompatActivity {
         if (currentUser == null) {
             sendtologin();
         }
+
+        //Query query = mDatabaseReference.child("blog").child(mUser.getUid());
         mDatabaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -170,6 +246,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menuLogout:
                 logout();
+                finish();
                 return true;
 
             case R.id.AddChild:

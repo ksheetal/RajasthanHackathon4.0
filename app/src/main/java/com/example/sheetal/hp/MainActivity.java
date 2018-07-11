@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void sendtoHome() {
-        Intent mainIntent = new Intent(MainActivity.this, HomeScreenActivity.class);
+        Intent mainIntent = new Intent(MainActivity.this, VolunteerHomeScreenAfterLogin.class);
         startActivity(mainIntent);
         finish();
     }

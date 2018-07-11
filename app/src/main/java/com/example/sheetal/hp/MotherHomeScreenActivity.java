@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +20,7 @@ import com.tapadoo.alerter.Alerter;
 
 public class MotherHomeScreenActivity extends AppCompatActivity {
 
-
+private android.support.v7.widget.Toolbar mainScreenToolbar;
 
 
     private TextView mnAddress;
@@ -29,7 +30,6 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
     private TextView mnProvidedVaccination;
     private TextView mSerialNumber;
     private TextView mnVolunteerId;
-
 
 
 
@@ -47,15 +47,16 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mother_home_screen);
+        mainScreenToolbar = findViewById(R.id.homeScreenToolbar);
+        setSupportActionBar(mainScreenToolbar);
+        getSupportActionBar().setTitle("MotherHomeScreen");
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         mAuth = FirebaseAuth.getInstance();
-        showAlert = findViewById(R.id.btnAlert);
-        showAlert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAlerter(view);
-            }
-        });
+       // showAlert = findViewById(R.id.btnAlert);
 
 
         mnSerialnumber = findViewById(R.id.mvolunteerId);
@@ -130,7 +131,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         });
     }*/
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mainmenu, menu);
+        getMenuInflater().inflate(R.menu.mothermenu, menu);
 
         return true;
     }
@@ -140,6 +141,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menuLogout:
                 logout();
+                finish();
                 return true;
 
             default:

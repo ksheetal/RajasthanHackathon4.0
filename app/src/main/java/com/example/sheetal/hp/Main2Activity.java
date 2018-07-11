@@ -203,6 +203,7 @@ public class Main2Activity extends AppCompatActivity {
                         Toast.makeText(Main2Activity.this, "Login Success", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Main2Activity.this, VolunteerHomeScreenAfterLogin.class);
                         startActivity(intent);
+                        finish();
 
                         try {
 
