@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -28,6 +30,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText registerConfirmPass;
 
     private Button registerSignup;
+
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference databaseReference;
 
     Animation uptodown;
     private ProgressDialog progressDialog;
@@ -51,6 +56,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        mDatabase = FirebaseDatabase.getInstance();
+        databaseReference = mDatabase.getReference().child("MUser");
+
         //     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressDialog = new ProgressDialog(this);
 
@@ -58,37 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String email = registerEmail.getText().toString();
-                String password = registerPass.getText().toString();
-                String confirpassword = registerConfirmPass.getText().toString();
-
-                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confirpassword)) {
-
-                    if (password.equals(confirpassword)) {
-                        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                if (task.isSuccessful()) {
-                                    progressDialog.setTitle("Success");
-                                    progressDialog.setMessage("We are creating your account. Please wait..");
-                                    progressDialog.show();
-                                    senttomain();
-                                } else {
-                                    String errorMessage = task.getException().getMessage();
-                                    Toast.makeText(RegisterActivity.this, "Error : " + errorMessage, Toast.LENGTH_SHORT).show();
-
-
-                                }
-                            }
-                        });
-
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "Password doesn't match", Toast.LENGTH_SHORT).show();
-                    }
-
+                createNewAccount();
                 }
-            }
         });
 
         mregisterTextView.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +78,43 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void createNewAccount() {
+        final String email = registerEmail.getText().toString();
+        String password = registerPass.getText().toString();
+        String confirpassword = registerConfirmPass.getText().toString();
+
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(confirpassword)) {
+
+            if (password.equals(confirpassword)) {
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()) {
+                            String userid = mAuth.getCurrentUser().getUid();
+                            DatabaseReference currentUserDb = databaseReference.child(userid);
+                            currentUserDb.child("Email").setValue(email);
+                            
+                            progressDialog.setTitle("Success");
+                            progressDialog.setMessage("We are creating your account. Please wait..");
+                            progressDialog.show();
+                            senttomain();
+                        } else {
+                            String errorMessage = task.getException().getMessage();
+                            Toast.makeText(RegisterActivity.this, "Error : " + errorMessage, Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    }
+                });
+
+            } else {
+                Toast.makeText(RegisterActivity.this, "Password doesn't match", Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
     @Override

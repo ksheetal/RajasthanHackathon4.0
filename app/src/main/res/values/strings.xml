@@ -15,4 +15,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="invitation_title">Firebase Invite</string>
+    <string name="invitation_message">Hello From Parent App!</string>
+    <string name="invitation_deep_link">link</string>
+    <string name="title_activity_flutter">flutter</string>
 </resources>

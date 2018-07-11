@@ -10,10 +10,12 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,41 +42,25 @@ import com.tapadoo.alerter.Alerter;
 import org.w3c.dom.Text;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
-    private TextView mnAddress;
-    private TextView mParentNName;
-    private TextView mnpremature;
-    private TextView mnSerialnumber;
-    private TextView mnProvidedVaccination;
-    private TextView mSerialNumber;
-    private TextView mnVolunteerId;
-
-
-    private TextView btn1;
 
     private Toolbar mainScreenToolbar;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabaseReference;
+    private FirebaseUser mUser;
+    private FirebaseDatabase mDatabase;
+    private RecyclerView recyclerView;
+    private BlogRecyclerAdapter blogRecyclerAdapter;
+    private List<blog> blogList;
 
-    private Button imageButton;
-
-    private Button btnalert;
-
-    String mParentName = "";
-//    private String nDate;
-    // private DocumentRefrence documentRefrence;
 
 
     private static final String TAG = "FireLog";
 
-    private RecyclerView mrecyclerView;
-
-    private FirebaseDatabase database;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference("Data");
-//    DatabaseReference mcondition = databaseReference.child("ChildOne/Address");
-    // DatabaseReference mcondition1 = databaseReference.child("Users/ChildOne");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,81 +71,25 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+
+        mDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference= mDatabase.getReference().child("Blog");
+        mDatabaseReference.keepSynced(true);
 
         mainScreenToolbar = findViewById(R.id.homeScreenToolbar);
         setSupportActionBar(mainScreenToolbar);
         getSupportActionBar().setTitle("AAAs");
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        mnSerialnumber = findViewById(R.id.mvolunteerId);
-        mnAddress = findViewById(R.id.mAddress);
-        mParentNName = findViewById(R.id.mParentName);
-        mnpremature = findViewById(R.id.mPremature);
-        mnProvidedVaccination = findViewById(R.id.mProvidedVaccination);
-        mSerialNumber = findViewById(R.id.mSerialNumber);
-        mnVolunteerId = findViewById(R.id.mvolunteerId);
 
-        imageButton = findViewById(R.id.imageButton);
-        //  btn1 = findViewById(R.id.textView2);
+        blogList = new ArrayList<>();
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        btnalert =findViewById(R.id.btnAlert);
-        btnalert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAlerter(view);
 
-            }
-        });
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:102"));
-                startActivity(callIntent);
 
-            }
-        });
-
-         databaseReference.addValueEventListener(new ValueEventListener() {
-             @Override
-             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                 // String sheetal = null;
-                     String add = null;
-                    String vname = null;
-                    String pv= null;
-                    String pre = null;
-                    String vi =null;
-                    String sn= null;
-                    for (DataSnapshot doc : dataSnapshot.getChildren()) {
-                        //ChildOne childOne = doc.getValue(ChildOne.class);
-                        Data doc1 = doc.getValue(Data.class);
-                        add = doc1.getAdds();
-                        vname = doc1.getName();
-                        pv = doc1.getPv();
-                        pre = doc1.getPre();
-                        sn=doc1.getsn();
-                        vi = doc1.getVi();
-                 }
-                 mnAddress.setText(add);
-                 mParentNName.setText(vname);
-                 mnProvidedVaccination.setText(pv);
-                 mnpremature.setText(pre);
-                 mSerialNumber.setText(vi);
-                 mnSerialnumber.setText(sn);
-             }
-
-             @Override
-             public void onCancelled(DatabaseError databaseError) {
-
-             }
-         });
-/*        Alerter.create(this)
-                .setTitle("Injection activity")
-                .setText("Hello World....")
-                .show();
-
-*/
         // FireBase Notification
 
 /*
@@ -192,6 +123,38 @@ public class HomeScreenActivity extends AppCompatActivity {
         if (currentUser == null) {
             sendtologin();
         }
+        mDatabaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                blog blog1 = dataSnapshot.getValue(blog.class);
+                blogList.add(blog1);
+
+                blogRecyclerAdapter = new BlogRecyclerAdapter(HomeScreenActivity.this,blogList);
+                recyclerView.setAdapter(blogRecyclerAdapter);
+                blogRecyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
@@ -210,10 +173,11 @@ public class HomeScreenActivity extends AppCompatActivity {
                 return true;
 
             case R.id.AddChild:
-                Intent intent = new Intent(HomeScreenActivity.this,AddChild.class);
-                startActivity(intent);
-                return true;
-
+                if(mUser !=null && mAuth !=null ){
+                    Intent intent = new Intent(HomeScreenActivity.this,AddChild.class);
+                    startActivity(intent);
+                    finish();
+                }
             default:
                 return false;
 
@@ -223,8 +187,10 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 
     private void logout() {
-        mAuth.signOut();
-        sendtologin();
+        if(mUser !=null && mAuth !=null ) {
+            mAuth.signOut();
+            sendtologin();
+        }
     }
 
     private void sendtologin() {

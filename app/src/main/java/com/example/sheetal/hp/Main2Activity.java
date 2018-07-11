@@ -78,7 +78,6 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signIn();
-
             }
         });
         //** *** google SignIn***
@@ -157,6 +156,10 @@ public class Main2Activity extends AppCompatActivity {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
+                progressDialog.setTitle("Sign In");
+                progressDialog.setMessage("Signing into your Account..");
+                progressDialog.show();
+
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
