@@ -58,9 +58,9 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         blog blogg = blogList.get(position);
 
-        holder.ChildName.setText(blogg.getChildName());
-        holder.ChildDOB1.setText(blogg.getChildDOB());
-        holder.ChildFatherName.setText(blogg.getChildFatherName());
+        holder.ChildName.setText("Child Name - " + blogg.getChildName());
+        holder.ChildDOB1.setText("Child Date Of Birth - " + blogg.getChildDOB());
+        holder.ChildFatherName.setText("Child Father Name - " + blogg.getChildFatherName());
     }
 
     @Override
