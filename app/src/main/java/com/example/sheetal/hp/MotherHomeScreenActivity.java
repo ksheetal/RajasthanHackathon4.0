@@ -38,8 +38,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private RecyclerView recyclerView;
     private blogRecyclerAdapterMother blogRecyclerAdapter;
-    private List<blog> blogList;
-
+    private List<motherDetails> blogList;
 
 
     private static final String TAG = "FireLog";
@@ -57,7 +56,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
 
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference= mDatabase.getReference().child("Blog").child(mUser.getUid());
+        mDatabaseReference= mDatabase.getReference().child("MotherDetails").child(mUser.getUid());
         mDatabaseReference.keepSynced(true);
 
         //mDatabaseReference = mDatabase.getReference(); //checking for particular post.
@@ -183,8 +182,9 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                blog blog1 = dataSnapshot.getValue(blog.class);
-                blogList.add(blog1);
+                //blog blog1 = dataSnapshot.getValue(blog.class);
+                motherDetails details = dataSnapshot.getValue(motherDetails.class);
+                blogList.add(details);
 
                 blogRecyclerAdapter = new blogRecyclerAdapterMother(MotherHomeScreenActivity.this,blogList);
                 recyclerView.setAdapter(blogRecyclerAdapter);
@@ -227,6 +227,14 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
                 logout();
                 finish();
                 return true;
+
+
+            case R.id.addMother:
+                if(mUser !=null && mAuth !=null ){
+                    Intent intent = new Intent(MotherHomeScreenActivity.this,AddMother.class);
+                    startActivity(intent);
+                    finish();
+                }
 
             default:
                 return false;

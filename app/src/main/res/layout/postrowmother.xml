@@ -19,99 +19,126 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/ChildName"
+            android:id="@+id/MotherdName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:textColor="@color/colorAccent"
+            android:layout_marginTop="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:padding="10dp"
             android:text="Ashita Diwan"
             android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"
             android:typeface="serif"
             app:fontFamily="sans-serif"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/ChildDOB"
+            android:id="@+id/MDOB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:padding="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
-            android:text="15 June 2018"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ChildName" />
+            android:text="25 "
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/MotherdName"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/ChildFatherName"
+            android:id="@+id/MotherFatherName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:padding="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
             android:text="MR. Rahul Diwan"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ChildDOB" />
+            app:layout_constraintTop_toBottomOf="@+id/MotherdName" />
+
+        <TextView
+            android:id="@+id/motherexpectedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:padding="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:text="16 July 2018"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MotherFatherName" />
+
+        <TextView
+            android:id="@+id/mAddress"
+            android:layout_width="269dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:padding="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:text="17/5 Chack Daud Nagar Naini Allahabad 211008"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/motherexpectedDate" />
+
+        <TextView
+            android:id="@+id/mDescp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:padding="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:text="First Month "
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mAddress" />
+
 
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="156dp"
-            android:layout_marginStart="156dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ChildFatherName"
-            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/delete" />
-
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toBottomOf="@+id/ChildFatherName"
-            app:srcCompat="@drawable/update" />
 
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/bimg1" />
+
+
     </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

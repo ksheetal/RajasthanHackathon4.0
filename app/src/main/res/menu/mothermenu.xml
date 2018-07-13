@@ -8,7 +8,7 @@
         android:id="@+id/SendChild"
         android:title="Send Mother Details" />
     <item
-        android:id="@+id/AddChild"
+        android:id="@+id/addMother"
         android:title="Add Mother Details" />
     <item
         android:id="@+id/menuLogout"

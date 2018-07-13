@@ -43,16 +43,20 @@
         <activity android:name=".DietChart" />
         <activity android:name=".ChildVaccinationCenterActivity" />
         <activity android:name=".VolunteerHomeScreenAfterLogin" />
-        <activity android:name=".MotherHomeScreenActivity"
+        <activity
+            android:name=".MotherHomeScreenActivity"
             android:label="MotherHomeScreen"
             android:parentActivityName=".VolunteerHomeScreenAfterLogin" />
-        <activity android:name=".BMICalculator"
+        <activity
+            android:name=".BMICalculator"
             android:parentActivityName=".VolunteerHomeScreenAfterLogin" />
         <activity android:name=".SchemeActivity" />
         <activity android:name=".InfantMortalityRate" />
-        <activity android:name=".AddChild"
+        <activity
+            android:name=".AddChild"
             android:parentActivityName=".HomeScreenActivity" />
-
+        <activity android:name=".AddMother"
+            android:parentActivityName=".HomeScreenActivity"></activity>
     </application>
 
 </manifest>

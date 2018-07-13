@@ -13,18 +13,21 @@ import java.util.List;
 public class blogRecyclerAdapterMother extends RecyclerView.Adapter<blogRecyclerAdapterMother.ViewHolder> {
 
     private Context context;
-    private List<blog> blogList;
+    private List<motherDetails> blogList;
 
-    public blogRecyclerAdapterMother(Context context, List<blog> blogList) {
+    public blogRecyclerAdapterMother(Context context, List<motherDetails> blogList) {
         this.context = context;
         this.blogList = blogList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView ChildName;
-        public TextView ChildDOB1;
-        public TextView ChildFatherName;
+        public TextView mn;
+        public TextView ma;
+        public TextView mdob;
+        public TextView med;
+        public TextView md;
+        public TextView mfn;
 
         String userid;
 
@@ -32,9 +35,12 @@ public class blogRecyclerAdapterMother extends RecyclerView.Adapter<blogRecycler
             super(view);
             context = ctx;
 
-            ChildName = (TextView) view.findViewById(R.id.ChildName);
-            ChildDOB1 = (TextView) view.findViewById(R.id.ChildDOB);
-            ChildFatherName= (TextView) view.findViewById(R.id.ChildFatherName);
+            mn = view.findViewById(R.id.MotherdName);
+            ma = view.findViewById(R.id.mAddress);
+            mdob = view.findViewById(R.id.MDOB);
+            med = view.findViewById(R.id.motherexpectedDate);
+            md = view.findViewById(R.id.mDescp);
+            mfn = view.findViewById(R.id.MotherFatherName);
 
             userid = null;
             view.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +62,15 @@ public class blogRecyclerAdapterMother extends RecyclerView.Adapter<blogRecycler
     @Override
     public void onBindViewHolder(blogRecyclerAdapterMother.ViewHolder holder, int position) {
 
-        blog blogg = blogList.get(position);
+       // blog blogg = blogList.get(position);
+        motherDetails details = blogList.get(position);
+        holder.mn.setText("Mother Name - " + details.getMotherName());
+        holder.mfn.setText("Father Name - " + details.getMotherFatherName());
+        holder.mdob.setText("Age - " + details.getMotherAge());
+        holder.ma.setText("Address - " + details.getAddress());
+        holder.med.setText("Expecting Date - " + details.getExpectingDate());
+        holder.md.setText("Description - " + details.getDesp());
 
-        holder.ChildName.setText("Mother Name - " + blogg.getChildName());
-        holder.ChildDOB1.setText("Expecting Baby - " + blogg.getChildDOB());
-        holder.ChildFatherName.setText("Baby's Father Name - " + blogg.getChildFatherName());
     }
 
     @Override
@@ -68,3 +78,4 @@ public class blogRecyclerAdapterMother extends RecyclerView.Adapter<blogRecycler
         return blogList.size();
     }
 }
+

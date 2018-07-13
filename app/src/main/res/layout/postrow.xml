@@ -75,29 +75,24 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="156dp"
-            android:layout_marginStart="156dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ChildFatherName"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/delete" />
 
         <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_marginEnd="8dp"
+            android:id="@+id/imageView10"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.024"
-            app:layout_constraintStart_toEndOf="@+id/imageView7"
-            app:layout_constraintTop_toBottomOf="@+id/ChildFatherName"
-            app:srcCompat="@drawable/update" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baby" />
     </android.support.constraint.ConstraintLayout>
 
 
