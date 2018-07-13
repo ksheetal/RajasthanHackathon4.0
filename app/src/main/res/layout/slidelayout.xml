@@ -41,12 +41,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text1"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="kajad ks fj kasjdflkj kadjfk jkdjfkjk kjdsf kjkdj  kjdfk jkj  jk  jkjkjkjjkjjkj jkjk eurieut   kjdafk "
         android:textColor="@color/colorTransparentWhile"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/text1"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1" />
 
 </android.support.constraint.ConstraintLayout>
