@@ -78,14 +78,18 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, final int position) {
                 //Values are passing to activity & to fragment as well
-                Toast.makeText(MotherHomeScreenActivity.this, "Single Click on position :"+ position,
+                motherDetails details = blogList.get(position);
+                Toast.makeText(MotherHomeScreenActivity.this, "Showing Mother Name : "+ details.getMotherName(),
                         Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onLongClick(View view, int position) {
-                Toast.makeText(MotherHomeScreenActivity.this, "Long press on position :"+ position,
-                        Toast.LENGTH_LONG).show();
+                motherDetails details = blogList.get(position);
+                Toast.makeText(MotherHomeScreenActivity.this, "Your Unique User ID is :  "+ details.getUserId(),
+                        Toast.LENGTH_SHORT).show();
+
+
             }
         }));
 
