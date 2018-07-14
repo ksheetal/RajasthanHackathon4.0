@@ -7,7 +7,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="confrm_login">Already have an account. Log in</string>
     <string name="privacyString"><![CDATA[By signing up you confirm that you have read & agree to the our Privacy Policy and Terms & Conditions. © CyberPunk]]></string>
-    <string name="copyrightString">© CyberPunk</string>
+    <string name="copyrightString">© Sheetal Kumar</string>
     <string name="title_activity_home_screen">HomeScreenActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

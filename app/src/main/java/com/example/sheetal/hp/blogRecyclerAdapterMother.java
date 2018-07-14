@@ -69,7 +69,7 @@ public class blogRecyclerAdapterMother extends RecyclerView.Adapter<blogRecycler
         holder.mdob.setText("Age - " + details.getMotherAge());
         holder.ma.setText("Address - " + details.getAddress());
         holder.med.setText("Expecting Date - " + details.getExpectingDate());
-        holder.md.setText("Description - " + details.getDesp());
+        holder.md.setText("Contact Number - " + details.getDesp());
 
     }
 

@@ -1,9 +1,12 @@
 package com.example.sheetal.hp;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,9 +47,13 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private RecyclerView recyclerView;
     private blogRecyclerAdapterMother blogRecyclerAdapter;
+    //  private DataSnapshot dataSnapshot;
     private List<motherDetails> blogList;
-
+    //    private String childKey;
     private ListView listView;
+
+
+    private List<String> keyvalue;
 
     private static final String TAG = "FireLog";
 
@@ -63,8 +70,9 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
 
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference= mDatabase.getReference().child("MotherDetails").child(mUser.getUid());
+        mDatabaseReference = mDatabase.getReference().child("MotherDetails").child(mUser.getUid());
         mDatabaseReference.keepSynced(true);
+        // final DatabaseReference childData  = mDatabase.getReference().child(String.valueOf(mDatabaseReference)).child(mUser.getUid());
 
         //mDatabaseReference = mDatabase.getReference(); //checking for particular post.
 
@@ -75,10 +83,10 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        listView =findViewById(R.id.listView1);
+        listView = findViewById(R.id.listView1);
 
         blogList = new ArrayList<>();
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -88,17 +96,23 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
             public void onClick(View view, final int position) {
                 //Values are passing to activity & to fragment as well
                 motherDetails details = blogList.get(position);
-                Toast.makeText(MotherHomeScreenActivity.this, "Showing Mother Name : "+ details.getMotherName(),
+                // AddMother m = new AddMother();
+                //String childdata = m.returnChild();
+
+                //Intent intent = getIntent();
+                //String childKeyValue = intent.getStringExtra("childKey");
+
+//                String [] ab = getIntent().getStringArrayExtra("a");
+                Toast.makeText(MotherHomeScreenActivity.this, "Showing Contact Number : " + details.getDesp(),
                         Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onLongClick(View view, int position) {
-               // motherDetails details = blogList.get(position);
-                    showingDialog();
-                }
+                // motherDetails details = blogList.get(position);
+                showingDialog(position);
+            }
         }));
-
 
 
         // FireBase Notification
@@ -125,33 +139,46 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
 
     }
 
-    private void showingDialog() {
+    private void showingDialog(int position) {
         //AlertDialog.Builder mBuilder = new AlertDialog.Builder(MotherHomeScreenActivity.this);
         //View mView  = getLayoutInflater().inflate(R.layout.clickdialog,null);
         //mBuilder.setView(mView);
         //AlertDialog dialog = mBuilder.create();
         //dialog.show();
+        final int posi = position;
         Dialog dialog = new Dialog(MotherHomeScreenActivity.this);
         dialog.setContentView(R.layout.clickdialog);
         listView = dialog.findViewById(R.id.listView1);
         dialog.setCancelable(true);
         dialog.show();
 
-        String [] items = {"Call","View Full Description","Delete Mother Details","See previous Activities","Call Doctor Details "
-                ,"Send Notification"};
+        String[] items = {"Call", "View Full Description", "Delete Mother Details", "See previous Activities", "Call Doctor/Details "
+                , "Send Notification"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, items);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+
+                    motherDetails details = blogList.get(posi);
+                    Toast.makeText(MotherHomeScreenActivity.this, "Hi"+details.getDesp(),
+                            Toast.LENGTH_SHORT).show();
+
+
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL,Uri.fromParts("tel",details.getDesp().toString(),null));
+                    //callIntent.setData(Uri.parse("tel:9540217306"));
+                  //  callIntent.setData(Uri.parse("tel:9540217306"));
+                    startActivity(callIntent);
+                }
                 if(i ==1){
                     Toast.makeText(MotherHomeScreenActivity.this, "Coming Soon..",
                             Toast.LENGTH_SHORT).show();
 
                     //  Toast.makeText(SchemeActivity.this, , Toast.LENGTH_SHORT).show();
-                  //  Uri uri = Uri.parse("http://icds-wcd.nic.in");
+                    //  Uri uri = Uri.parse("http://icds-wcd.nic.in");
                     //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                     //startActivity(intent);
                 }
@@ -230,6 +257,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
                 //blog blog1 = dataSnapshot.getValue(blog.class);
                 motherDetails details = dataSnapshot.getValue(motherDetails.class);
                 blogList.add(details);
+
 
                 blogRecyclerAdapter = new blogRecyclerAdapterMother(MotherHomeScreenActivity.this,blogList);
                 recyclerView.setAdapter(blogRecyclerAdapter);

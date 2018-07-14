@@ -2,6 +2,7 @@ package com.example.sheetal.hp;
 
 import android.*;
 import android.Manifest;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -25,9 +26,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +65,8 @@ public class HomeScreenActivity extends AppCompatActivity {
     private BlogRecyclerAdapter blogRecyclerAdapter;
     private List<blog> blogList;
 
+    private ListView listView;
+
 
 
     private static final String TAG = "FireLog";
@@ -80,7 +86,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference= mDatabase.getReference().child("Blog").child(mUser.getUid());
         mDatabaseReference.keepSynced(true);
-
         //mDatabaseReference = mDatabase.getReference(); //checking for particular post.
 
         mainScreenToolbar = findViewById(R.id.homeScreenToolbar);
@@ -106,8 +111,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
             @Override
             public void onLongClick(View view, int position) {
-                Toast.makeText(HomeScreenActivity.this, "Long press on position :"+ position,
-                        Toast.LENGTH_LONG).show();
+               showingchilddetails();
             }
         }));
 
@@ -134,6 +138,35 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         // Read from the database
 
+    }
+
+    private void showingchilddetails() {
+        Dialog dialog = new Dialog(HomeScreenActivity.this);
+        dialog.setContentView(R.layout.clickdialogechild);
+        ListView listView = dialog.findViewById(R.id.listViewchild);
+        dialog.setCancelable(true);
+        dialog.show();
+
+        String [] items = {"Call Parent","View Full Description","Delete Child Details","See previous Activities","Call Doctor/Details "
+                ,"Send Notification"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,items);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i ==1){
+                    Toast.makeText(HomeScreenActivity.this, "Coming Soon..",
+                            Toast.LENGTH_SHORT).show();
+
+                    //  Toast.makeText(SchemeActivity.this, , Toast.LENGTH_SHORT).show();
+                    //  Uri uri = Uri.parse("http://icds-wcd.nic.in");
+                    //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                    //startActivity(intent);
+                }
+            }
+        });
     }
 
     //RECYCLER VIEW ONCLICK METHOND

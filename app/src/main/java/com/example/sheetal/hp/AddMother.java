@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AddMother extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class AddMother extends AppCompatActivity {
     private EditText mMotherAdds;
     private EditText mMotherDesp;
     private Button mbtn;
+    public String childkey;
 
 
     private DatabaseReference mPostDatabase;
@@ -37,6 +39,8 @@ public class AddMother extends AppCompatActivity {
     private FirebaseUser mUser;
 
     private ProgressDialog progressDialog;
+
+   // private List<String> keyValue;
 
 
     @Override
@@ -94,11 +98,21 @@ public class AddMother extends AppCompatActivity {
           //  blog blog1 = new blog("ChildName","ChildDB",
             //        "ChildFatherName","UserId");
 
+
             motherDetails details = new motherDetails("motherName","motherAge",
                     "motherFatherName","expectingDate",
                     "Address","desp","userid");
 
             DatabaseReference newPost = mPostDatabase.push();
+            //String childkey = newPost.getKey();
+//            returnChild(Childkey);
+            //keyValue.add(mPostDatabase.getKey());
+         // Intent i = new Intent(getApplicationContext(),MotherHomeScreenActivity.class);
+         // i.putExtra("a", String.valueOf(keyValue));
+          //startActivity(i);
+
+          //  Intent i = new Intent(this,AddMother.class);
+            //i.putExtra("childKey",newPost.getKey());
 
             Map<String,String> DataToSave = new HashMap<>();
             DataToSave.put("motherName",MN);
@@ -110,7 +124,7 @@ public class AddMother extends AppCompatActivity {
             DataToSave.put("userId",mUser.getUid());
 
             newPost.setValue(DataToSave);
-            Toast.makeText(getApplicationContext(),"Mother Details added. ",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Mother Details added. " +newPost.getKey(),Toast.LENGTH_LONG).show();
             mMotherDesp.setText("");
             mMotherAdds.setText("");
             mMotherExp.setText("");
@@ -123,5 +137,6 @@ public class AddMother extends AppCompatActivity {
             progressDialog.dismiss();
         }
     }
+
 }
 

@@ -7,10 +7,12 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/listViewchild"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"></ListView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ListView>
+
 </android.support.constraint.ConstraintLayout>
