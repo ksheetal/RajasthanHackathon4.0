@@ -88,7 +88,7 @@
             android:layout_width="135dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/buttonlogin"
+            android:background="@drawable/background"
             android:padding="16dp"
             android:text="@string/sign_up"
             android:textAllCaps="false"

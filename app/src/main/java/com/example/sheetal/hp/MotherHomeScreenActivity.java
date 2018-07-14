@@ -1,7 +1,10 @@
 package com.example.sheetal.hp;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -40,6 +46,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
     private blogRecyclerAdapterMother blogRecyclerAdapter;
     private List<motherDetails> blogList;
 
+    private ListView listView;
 
     private static final String TAG = "FireLog";
 
@@ -68,6 +75,8 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        listView =findViewById(R.id.listView1);
+
         blogList = new ArrayList<>();
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -85,13 +94,11 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
 
             @Override
             public void onLongClick(View view, int position) {
-                motherDetails details = blogList.get(position);
-                Toast.makeText(MotherHomeScreenActivity.this, "Your Unique User ID is :  "+ details.getUserId(),
-                        Toast.LENGTH_SHORT).show();
-
-
-            }
+               // motherDetails details = blogList.get(position);
+                    showingDialog();
+                }
         }));
+
 
 
         // FireBase Notification
@@ -116,6 +123,40 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
 
         // Read from the database
 
+    }
+
+    private void showingDialog() {
+        //AlertDialog.Builder mBuilder = new AlertDialog.Builder(MotherHomeScreenActivity.this);
+        //View mView  = getLayoutInflater().inflate(R.layout.clickdialog,null);
+        //mBuilder.setView(mView);
+        //AlertDialog dialog = mBuilder.create();
+        //dialog.show();
+        Dialog dialog = new Dialog(MotherHomeScreenActivity.this);
+        dialog.setContentView(R.layout.clickdialog);
+        listView = dialog.findViewById(R.id.listView1);
+        dialog.setCancelable(true);
+        dialog.show();
+
+        String [] items = {"Call","View Full Description","Delete Mother Details","See previous Activities","Call Doctor Details "
+                ,"Send Notification"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,items);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i ==1){
+                    Toast.makeText(MotherHomeScreenActivity.this, "Coming Soon..",
+                            Toast.LENGTH_SHORT).show();
+
+                    //  Toast.makeText(SchemeActivity.this, , Toast.LENGTH_SHORT).show();
+                  //  Uri uri = Uri.parse("http://icds-wcd.nic.in");
+                    //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                    //startActivity(intent);
+                }
+            }
+        });
     }
 
     //RECYCLER VIEW ONCLICK METHOND
