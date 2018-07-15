@@ -287,6 +287,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                     Intent intent = new Intent(HomeScreenActivity.this,AddChild.class);
                     startActivity(intent);
                     finish();
+                    return true;
                 }
 
             case R.id.menuSettings:
@@ -294,6 +295,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                     Intent intent = new Intent(HomeScreenActivity.this,accountSettingActivity.class);
                     startActivity(intent);
                     finish();
+                    return true;
                 }
             default:
                 return false;

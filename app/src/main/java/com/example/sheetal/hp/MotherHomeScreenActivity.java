@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -149,8 +150,11 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         Dialog dialog = new Dialog(MotherHomeScreenActivity.this);
         dialog.setContentView(R.layout.clickdialog);
         listView = dialog.findViewById(R.id.listView1);
+
         dialog.setCancelable(true);
         dialog.show();
+
+
 
         String[] items = {"Call", "View Full Description", "Delete Mother Details", "See previous Activities", "Call Doctor/Details "
                 , "Send Notification"};
