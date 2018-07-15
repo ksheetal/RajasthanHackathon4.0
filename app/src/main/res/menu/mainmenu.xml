@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/menuSettings"
-        android:title="Account Settings" />
+        android:title="Account Info" />
     <item
         android:id="@+id/SendChild"
         android:title="Send Child Details" />

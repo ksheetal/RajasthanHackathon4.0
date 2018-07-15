@@ -288,6 +288,13 @@ public class HomeScreenActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+
+            case R.id.menuSettings:
+                if(mUser !=null && mAuth !=null ){
+                    Intent intent = new Intent(HomeScreenActivity.this,accountSettingActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             default:
                 return false;
 

@@ -172,11 +172,15 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
                     //callIntent.setData(Uri.parse("tel:9540217306"));
                   //  callIntent.setData(Uri.parse("tel:9540217306"));
                     startActivity(callIntent);
+                    finish();
                 }
                 if(i ==1){
-                    Toast.makeText(MotherHomeScreenActivity.this, "Coming Soon..",
-                            Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(MotherHomeScreenActivity.this, "Coming Soon..",
+                    //        Toast.LENGTH_SHORT).show();
 
+                    Intent intent = new Intent(MotherHomeScreenActivity.this,ViewDetailsActivity.class);
+                    startActivity(intent);
+                    finish();
                     //  Toast.makeText(SchemeActivity.this, , Toast.LENGTH_SHORT).show();
                     //  Uri uri = Uri.parse("http://icds-wcd.nic.in");
                     //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
@@ -307,6 +311,15 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
                     Intent intent = new Intent(MotherHomeScreenActivity.this,AddMother.class);
                     startActivity(intent);
                     finish();
+
+                    return true;
+                }
+            case R.id.menuSettings:
+                if(mUser !=null && mAuth !=null ){
+                    Intent intent = new Intent(MotherHomeScreenActivity.this,accountSettingActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
                 }
 
             default:
