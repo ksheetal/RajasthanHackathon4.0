@@ -50,7 +50,7 @@ public class AddChild extends AppCompatActivity {
 
     Toolbar addChildToolbar;
 
-    NotificationHelper notificationHelper;
+    //NotificationHelper notificationHelper;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -58,7 +58,7 @@ public class AddChild extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child);
 
-        notificationHelper = new NotificationHelper(this);
+      //  notificationHelper = new NotificationHelper(this);
 
 //        databaseReference = FirebaseDatabase.getInstance().getReference("Data").child("Notification").child("child2").child("name");
 //ndatabaseReference = databaseReference.child("Data").child("child1");

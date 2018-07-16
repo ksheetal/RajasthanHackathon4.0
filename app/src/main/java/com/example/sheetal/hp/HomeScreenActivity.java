@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,10 +51,13 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.tapadoo.alerter.Alerter;
 
 import org.w3c.dom.Text;
+import android.view.View;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.sheetal.hp.App.CHANNEL_2_ID;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -65,6 +71,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     private BlogRecyclerAdapter blogRecyclerAdapter;
     private List<blog> blogList;
 
+    private NotificationManagerCompat notificationManagerCompat;
     private ListView listView;
 
 
@@ -87,6 +94,9 @@ public class HomeScreenActivity extends AppCompatActivity {
         mDatabaseReference= mDatabase.getReference().child("Blog").child(mUser.getUid());
         mDatabaseReference.keepSynced(true);
         //mDatabaseReference = mDatabase.getReference(); //checking for particular post.
+
+
+        notificationManagerCompat = NotificationManagerCompat.from(this);
 
         mainScreenToolbar = findViewById(R.id.homeScreenToolbar);
         setSupportActionBar(mainScreenToolbar);
@@ -116,6 +126,29 @@ public class HomeScreenActivity extends AppCompatActivity {
         }));
 
 
+
+
+        ///FIREBASE NOTIFICATION NEW ONE START HERE
+
+     /*   public void sendOnChannel2 (){
+            String title = "Hello 2";
+            String message = "Hey i am also a Notification";
+
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                    .setSmallIcon(R.drawable.ic_add_alert)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .build();
+
+            notificationManagerCompat.notify(2, notification);
+        }*/
+
+
+
+
+        // FIREBASE NOTIFICATION NEW ONE ENDS HERE
+
         // FireBase Notification
 
 /*
@@ -141,7 +174,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     private void showingchilddetails() {
-        Dialog dialog = new Dialog(HomeScreenActivity.this);
+        final Dialog dialog = new Dialog(HomeScreenActivity.this);
         dialog.setContentView(R.layout.clickdialogechild);
         ListView listView = dialog.findViewById(R.id.listViewchild);
         dialog.setCancelable(true);
@@ -165,8 +198,28 @@ public class HomeScreenActivity extends AppCompatActivity {
                     //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                     //startActivity(intent);
                 }
+                if(i==5){
+                    //mAuth.getCurrentUser();
+                    sendNotification();
+                    dialog.dismiss();
+                }
             }
         });
+    }
+
+    private void sendNotification() {
+        String title = "Hello";
+        String message = "Hey I am Notification";
+        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.mom_outline_png_12)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+        notificationManagerCompat.notify(1, notification);
+
     }
 
     //RECYCLER VIEW ONCLICK METHOND

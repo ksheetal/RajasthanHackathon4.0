@@ -2,11 +2,14 @@ package com.example.sheetal.hp;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +56,8 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
     //    private String childKey;
     private ListView listView;
 
+    private NotificationManagerCompat notificationManagerCompat;
+
 
     private List<String> keyvalue;
 
@@ -69,6 +74,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+        notificationManagerCompat = NotificationManagerCompat.from(this);
 
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference().child("MotherDetails").child(mUser.getUid());
@@ -147,7 +153,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         //AlertDialog dialog = mBuilder.create();
         //dialog.show();
         final int posi = position;
-        Dialog dialog = new Dialog(MotherHomeScreenActivity.this);
+        final Dialog dialog = new Dialog(MotherHomeScreenActivity.this);
         dialog.setContentView(R.layout.clickdialog);
         listView = dialog.findViewById(R.id.listView1);
 
@@ -190,8 +196,40 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
                     //Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                     //startActivity(intent);
                 }
+
+                if(i==5){
+                    //mAuth.getCurrentUser();
+                    motherDetails details = new motherDetails();
+                    if(mUser.getEmail().toString().equals("a@a.com"))
+                    {
+                        sendNotification();
+                        dialog.dismiss();
+                        Toast.makeText(MotherHomeScreenActivity.this, "Notification Send",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(MotherHomeScreenActivity.this, "No such User. try again.!",
+                                Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                }
             }
         });
+    }
+
+
+    private void sendNotification() {
+        String title = "Hello";
+        String message = "Hey I am Notification";
+        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.mom_outline_png_12)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+        notificationManagerCompat.notify(1, notification);
+
     }
 
     //RECYCLER VIEW ONCLICK METHOND
