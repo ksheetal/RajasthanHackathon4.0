@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private CheckBox checkBox;
     private TextView mregisterTextView;
     private EditText registerEmail;
     private EditText registerPass;
@@ -32,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerSignup;
 
     private FirebaseDatabase mDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference, databaseReferenceparent;
 
     Animation uptodown;
     private ProgressDialog progressDialog;
@@ -50,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerConfirmPass = findViewById(R.id.registerConfirmLoginPass);
         registerSignup = findViewById(R.id.registerLoginBtn);
 
-
+        checkBox = findViewById(R.id.checkBox);
         uptodown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
         registerSignup.setAnimation(uptodown);
 
@@ -58,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance();
         databaseReference = mDatabase.getReference().child("MUser");
+        databaseReferenceparent = mDatabase.getReference().child("ParentDetails");
 
         //     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressDialog = new ProgressDialog(this);
@@ -91,12 +94,26 @@ public class RegisterActivity extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(checkBox.isChecked()){
+                            if (task.isSuccessful()) {
+                                String userid = mAuth.getCurrentUser().getUid();
+                                DatabaseReference currentUserDb = databaseReferenceparent.child(userid);
+                                currentUserDb.child("Email").setValue(email);
+                                progressDialog.setTitle("Success");
+                                progressDialog.setMessage("We are creating your account. Please wait..");
+                                progressDialog.show();
+                                senttomain();
+                            } else {
+                                String errorMessage = task.getException().getMessage();
+                                Toast.makeText(RegisterActivity.this, "Error : " + errorMessage, Toast.LENGTH_SHORT).show();
 
+
+                            }
+                        }else
                         if (task.isSuccessful()) {
                             String userid = mAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = databaseReference.child(userid);
                             currentUserDb.child("Email").setValue(email);
-                            
                             progressDialog.setTitle("Success");
                             progressDialog.setMessage("We are creating your account. Please wait..");
                             progressDialog.show();

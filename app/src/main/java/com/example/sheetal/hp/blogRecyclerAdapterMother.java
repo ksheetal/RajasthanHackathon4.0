@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class blogRecyclerAdapterMother extends RecyclerView.Adapter<blogRecyclerAdapterMother.ViewHolder> {
 
     private Context context;
+    private EditText registerLoginEmail;
     private List<motherDetails> blogList;
 
     public blogRecyclerAdapterMother(Context context, List<motherDetails> blogList) {
@@ -41,7 +43,7 @@ public class blogRecyclerAdapterMother extends RecyclerView.Adapter<blogRecycler
             med = view.findViewById(R.id.motherexpectedDate);
             md = view.findViewById(R.id.mDescp);
             mfn = view.findViewById(R.id.MotherFatherName);
-
+            registerLoginEmail = view.findViewById(R.id.registerLoginEmail);
             userid = null;
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,12 +66,13 @@ public class blogRecyclerAdapterMother extends RecyclerView.Adapter<blogRecycler
 
        // blog blogg = blogList.get(position);
         motherDetails details = blogList.get(position);
+
         holder.mn.setText("Mother Name - " + details.getMotherName());
         holder.mfn.setText("Father Name - " + details.getMotherFatherName());
         holder.mdob.setText("Age - " + details.getMotherAge());
         holder.ma.setText("Address - " + details.getAddress());
         holder.med.setText("Expecting Date - " + details.getExpectingDate());
-        holder.md.setText("Contact Number - " + details.getDesp());
+        holder.md.setText("Email Id - " + details.getDesp());
 
     }
 

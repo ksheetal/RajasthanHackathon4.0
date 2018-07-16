@@ -36,6 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tapadoo.alerter.Alerter;
 
@@ -46,7 +47,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
 
     private android.support.v7.widget.Toolbar mainScreenToolbar;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabaseReference;
+    private DatabaseReference mDatabaseReference , mDatabaseRefrenceParent;
     private FirebaseUser mUser;
     private FirebaseDatabase mDatabase;
     private RecyclerView recyclerView;
@@ -79,6 +80,9 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference().child("MotherDetails").child(mUser.getUid());
         mDatabaseReference.keepSynced(true);
+
+        mDatabaseRefrenceParent = mDatabase.getReference();
+
         // final DatabaseReference childData  = mDatabase.getReference().child(String.valueOf(mDatabaseReference)).child(mUser.getUid());
 
         //mDatabaseReference = mDatabase.getReference(); //checking for particular post.
@@ -177,7 +181,6 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
                     Toast.makeText(MotherHomeScreenActivity.this, "Hi"+details.getDesp(),
                             Toast.LENGTH_SHORT).show();
 
-
                     Intent callIntent = new Intent(Intent.ACTION_DIAL,Uri.fromParts("tel",details.getDesp().toString(),null));
                     //callIntent.setData(Uri.parse("tel:9540217306"));
                   //  callIntent.setData(Uri.parse("tel:9540217306"));
@@ -199,18 +202,35 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
 
                 if(i==5){
                     //mAuth.getCurrentUser();
-                    motherDetails details = new motherDetails();
-                    if(mUser.getEmail().toString().equals("a@a.com"))
-                    {
-                        sendNotification();
-                        dialog.dismiss();
-                        Toast.makeText(MotherHomeScreenActivity.this, "Notification Send",
-                                Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(MotherHomeScreenActivity.this, "No such User. try again.!",
-                                Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
+                    final motherDetails details = blogList.get(posi);
+                  //  Query query = mDatabaseRefrenceParent.child(mUser.getUid()).child("Email:");
+
+                    /*Toast.makeText(MotherHomeScreenActivity.this, "First Toast" +mUser.getEmail().toString(),
+                            Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(MotherHomeScreenActivity.this, "Second Toast" +details.getDesp(),
+                            Toast.LENGTH_SHORT).show();
+*/
+                    Query query = mDatabaseRefrenceParent.child("ParentDetails").orderByChild("Email:").equalTo(details.getDesp());
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Toast.makeText(MotherHomeScreenActivity.this, "Notification send" ,
+                                 Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            if(mUser.getEmail().toString().equals(details)){
+                                sendNotification();
+                            }
+                            }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Toast.makeText(MotherHomeScreenActivity.this, "No such parent exists" ,
+                                    Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
                 }
             }
         });
