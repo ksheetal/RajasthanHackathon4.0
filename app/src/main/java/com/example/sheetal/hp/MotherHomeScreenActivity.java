@@ -218,7 +218,7 @@ public class MotherHomeScreenActivity extends AppCompatActivity {
                             Toast.makeText(MotherHomeScreenActivity.this, "Notification send" ,
                                  Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
-                            if(mUser.getEmail().toString().equals(details)){
+                            if(mUser.getEmail().toString().equals(details.getDesp())){
                                 sendNotification();
                             }
                             }

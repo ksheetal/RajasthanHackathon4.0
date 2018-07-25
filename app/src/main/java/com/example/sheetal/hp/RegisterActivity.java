@@ -107,9 +107,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 String errorMessage = task.getException().getMessage();
                                 Toast.makeText(RegisterActivity.this, "Error : " + errorMessage, Toast.LENGTH_SHORT).show();
 
-
-                            }
-                        }else
+                                }
+                        }
                         if (task.isSuccessful()) {
                             String userid = mAuth.getCurrentUser().getUid();
                             DatabaseReference currentUserDb = databaseReference.child(userid);

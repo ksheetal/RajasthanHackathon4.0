@@ -11,8 +11,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -54,6 +56,8 @@ import org.w3c.dom.Text;
 import android.view.View;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +83,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     private static final String TAG = "FireLog";
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +102,9 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 
         notificationManagerCompat = NotificationManagerCompat.from(this);
+
+       // LocalDate localDate = new LocalDate(Context);
+        LocalDate localDate = LocalDate.now();
 
         mainScreenToolbar = findViewById(R.id.homeScreenToolbar);
         setSupportActionBar(mainScreenToolbar);
@@ -187,6 +195,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i ==1){
@@ -200,16 +209,25 @@ public class HomeScreenActivity extends AppCompatActivity {
                 }
                 if(i==5){
                     //mAuth.getCurrentUser();
+
                     sendNotification();
+
                     dialog.dismiss();
                 }
             }
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendNotification() {
-        String title = "Hello";
-        String message = "Hey I am Notification";
+        LocalDate today = LocalDate.now();
+        LocalDateTime time = LocalDateTime.now();
+        String title = today.toString();
+        String message1 = time.toString();
+
+        String[] seprated = message1.split("T");
+        String message = seprated[1];
+
         Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.mom_outline_png_12)
                 .setContentTitle(title)
