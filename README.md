@@ -1,3 +1,6 @@
+`this project is no longer maintained`
+
+
 RAJASTHAN HACKATHON 4.0
 
 AAAS : A MAJOR STEP TOWARDS A NEW BEGINNING
